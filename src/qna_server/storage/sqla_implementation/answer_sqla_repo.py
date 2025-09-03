@@ -126,7 +126,7 @@ class AnswerRepositorySQLA(AnswersRepository):
                 await tr.commit()
 
             except StaleDataError as err:
-                self.logger.exception(
+                self.logger.warning(
                     "Exception while deleting data from DB",
                     extra=self.logging_ctx
                 )

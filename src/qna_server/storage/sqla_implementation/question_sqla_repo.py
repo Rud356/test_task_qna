@@ -16,7 +16,6 @@ from qna_server.types import ContextID, LoggingContext, generate_context_id
 
 
 class QuestionsRepositorySQLA(QuestionsRepository):
-
     def __init__(
         self,
         transaction: TransactionManagerSQLA,
@@ -136,7 +135,7 @@ class QuestionsRepositorySQLA(QuestionsRepository):
                 await tr.commit()
 
             except NoResultFound as err:
-                self.logger.exception(
+                self.logger.warning(
                     f"Question for deletion was not found with ID={question_id}",
                     extra=self.logging_ctx
                 )
