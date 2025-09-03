@@ -10,4 +10,4 @@ def generate_context_id() -> ContextID:
 
     :return: New context id.
     """
-    return ContextID(token_hex(16))
+    return ContextID(token_hex(16).upper())
