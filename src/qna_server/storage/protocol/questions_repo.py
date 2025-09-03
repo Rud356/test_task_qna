@@ -2,6 +2,7 @@ from abc import abstractmethod
 from typing import Protocol, runtime_checkable
 
 from qna_server.dto import CreateQuestion, Question
+from qna_server.dto.questions_with_answers import QuestionWithAnswers
 
 
 @runtime_checkable
@@ -27,7 +28,7 @@ class QuestionsRepository(Protocol):
         """
 
     @abstractmethod
-    async def fetch_specific_question(self, question_id: int) -> Question | None:
+    async def fetch_specific_question(self, question_id: int) -> QuestionWithAnswers | None:
         """
         Fetches question by its ID.
 

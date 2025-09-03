@@ -42,7 +42,7 @@ class AnswerRepositorySQLA(AnswersRepository):
                 extra=self.logging_ctx
             )
 
-            new_answer = AnswerTable(
+            new_answer: AnswerTable = AnswerTable(
                 question_id=question_id,
                 user_id=answer_content.user_id,
                 text=answer_content.text
