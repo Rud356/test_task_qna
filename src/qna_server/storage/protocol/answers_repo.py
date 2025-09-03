@@ -14,6 +14,7 @@ class AnswersRepository(Protocol):
         :param question_id: ID of a question that answer will be connected to.
         :param answer_content: Content of an answer.
         :return: Answer details after creating record.
+        :raises DataIntegrityError: If question that answer is linked to does not exist.
         """
 
     @abstractmethod
