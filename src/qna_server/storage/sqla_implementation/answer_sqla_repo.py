@@ -26,20 +26,20 @@ class AnswerRepositorySQLA(AnswersRepository):
             self.context_id = generate_context_id()
 
         self.logger: logging.Logger = logging.getLogger("qna_logger")
+        self.logging_ctx = LoggingContext(context_id=self.context_id)
 
     async def create_answer(
         self, question_id: int, answer_content: CreateAnswer
     ) -> Answer:
-        logging_ctx: LoggingContext = LoggingContext(context_id=self.context_id)
         self.logger.debug(
             f"Started creating the answer for question with ID={question_id}",
-            extra=logging_ctx
+            extra=self.logging_ctx
         )
 
         async with self.transaction as tr:
             self.logger.debug(
                 f"Creating object with provided data: {answer_content=}",
-                extra=logging_ctx
+                extra=self.logging_ctx
             )
 
             new_answer = AnswerTable(
@@ -51,20 +51,20 @@ class AnswerRepositorySQLA(AnswersRepository):
             try:
                 self.logger.debug(
                     f"Successfully created the answer for question with ID={question_id}",
-                    extra=logging_ctx
+                    extra=self.logging_ctx
                 )
                 await tr.commit()
 
             except IntegrityError as err:
                 self.logger.exception(
                     "Failed to create an answer to a question in database",
-                    extra=logging_ctx
+                    extra=self.logging_ctx
                 )
                 raise DataIntegrityError("Question does not exist to be linked to") from err
 
         self.logger.debug(
             f"Successfully created the answer for question with ID={question_id}",
-            extra=logging_ctx
+            extra=self.logging_ctx
         )
 
         return Answer(
@@ -76,19 +76,17 @@ class AnswerRepositorySQLA(AnswersRepository):
         )
 
     async def fetch_answer_by_id(self, answer_id: int) -> Answer | None:
-        logging_ctx: LoggingContext = LoggingContext(context_id=self.context_id)
-
         async with self.transaction as tr:
             self.logger.debug(
                 f"Fetching information for answer with id={answer_id}",
-                extra=logging_ctx
+                extra=self.logging_ctx
             )
             answer_data: AnswerTable | None = await tr.get(AnswerTable, answer_id)
 
         if answer_data is not None:
             self.logger.debug(
                 f"Successfully found answer with id={answer_data}",
-                extra=logging_ctx
+                extra=self.logging_ctx
             )
 
             return Answer(
@@ -102,24 +100,25 @@ class AnswerRepositorySQLA(AnswersRepository):
         else:
             self.logger.debug(
                 f"Answer with id={answer_data} not found",
-                extra=logging_ctx
+                extra=self.logging_ctx
             )
             return None
 
     async def delete_answer(self, answer_id: int) -> bool:
-        logging_ctx: LoggingContext = LoggingContext(context_id=self.context_id)
-
         async with self.transaction as tr:
             self.logger.debug(
                 f"Fetching information for answer with id={answer_id} to be deleted",
-                extra=logging_ctx
+                extra=self.logging_ctx
             )
 
             try:
                 answer_data: AnswerTable = await tr.get_one(AnswerTable, answer_id)
 
             except NoResultFound as err:
-                self.logger.exception("No answer with provided ID found", extra=logging_ctx)
+                self.logger.exception(
+                    "No answer with provided ID found",
+                    extra=self.logging_ctx
+                )
                 raise NotFoundError("Answer not found in database") from err
 
             try:
@@ -127,7 +126,10 @@ class AnswerRepositorySQLA(AnswersRepository):
                 await tr.commit()
 
             except StaleDataError as err:
-                self.logger.exception("Exception while deleting data from DB", extra=logging_ctx)
+                self.logger.exception(
+                    "Exception while deleting data from DB",
+                    extra=self.logging_ctx
+                )
                 raise NotFoundError("Data was deleted before it could be found") from err
 
         return True
