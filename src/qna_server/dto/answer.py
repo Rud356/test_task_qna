@@ -15,6 +15,10 @@ class Answer(BaseModel):
     question_id: int = Field(
         description="ID of a question specific answer is for"
     )
+    user_id: str = Field(
+        min_length=1,
+        max_length=320
+    )
     text: str = Field(
         min_length=1,
         max_length=2048,

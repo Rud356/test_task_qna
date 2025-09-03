@@ -11,3 +11,9 @@ class CreateAnswer(BaseModel):
         pattern=r"^(\S.+){1,2048}",
         description="Answer text that must start from non-whitespace character"
     )
+    user_id: str = Field(
+        min_length=1,
+        max_length=320,
+        pattern=r"^(\S.+){1,2048}",
+        description="User who writes a response"
+    )
