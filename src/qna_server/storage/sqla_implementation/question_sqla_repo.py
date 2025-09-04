@@ -93,7 +93,7 @@ class QuestionsRepositorySQLA(QuestionsRepository):
             query: Select[tuple[QuestionTable]] = (
                 select(QuestionTable).options(
                     selectinload(QuestionTable.answers)
-                )
+                ).where(QuestionTable.id == question_id)
             )
             question: QuestionTable | None = (
                 await tr.execute(query)

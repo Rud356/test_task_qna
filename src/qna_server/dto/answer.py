@@ -8,8 +8,7 @@ class Answer(BaseModel):
     Answer model for specific question.
     """
 
-    answer_id: int = Field(
-        alias="id",
+    id: int = Field(
         description="ID of an answer"
     )
     question_id: int = Field(

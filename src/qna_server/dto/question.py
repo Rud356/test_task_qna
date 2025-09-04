@@ -8,8 +8,7 @@ class Question(BaseModel):
     Questions model for transferring data.
     """
 
-    question_id: int = Field(
-        alias="id",
+    id: int = Field(
         description="ID of a question"
     )
     text: str = Field(
