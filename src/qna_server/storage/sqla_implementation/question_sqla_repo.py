@@ -55,7 +55,7 @@ class QuestionsRepositorySQLA(QuestionsRepository):
 
     async def get_all_questions(self) -> list[Question]:
         async with self.transaction as tr:
-            self.logger.debug(
+            self.logger.info(
                 "Fetching questions",
                 extra=self.logging_ctx
             )
@@ -70,7 +70,7 @@ class QuestionsRepositorySQLA(QuestionsRepository):
         questions_list: list[Question] = []
         for question in fetched_questions:
             self.logger.debug(
-                f"Processing {question}",
+                f"Processing question with ID={question.id}",
                 extra=self.logging_ctx
             )
 
@@ -82,13 +82,17 @@ class QuestionsRepositorySQLA(QuestionsRepository):
                 extra=self.logging_ctx
             )
 
-        self.logger.debug(
-            f"Fetched {len(questions_list)}",
+        self.logger.info(
+            f"Fetched {len(questions_list)} questions",
             extra=self.logging_ctx
         )
         return questions_list
 
     async def fetch_specific_question(self, question_id: int) -> QuestionWithAnswers | None:
+        self.logger.info(
+        f"Fetching question with ID={question_id}",
+            extra=self.logging_ctx
+        )
         async with self.transaction as tr:
             query: Select[tuple[QuestionTable]] = (
                 select(QuestionTable).options(
@@ -113,6 +117,10 @@ class QuestionsRepositorySQLA(QuestionsRepository):
                     )
                 )
 
+            self.logger.info(
+                f"Fetching question with ID={question_id} completed successfully",
+                extra=self.logging_ctx
+            )
             return QuestionWithAnswers(
                 id=question.id,
                 text=question.text,
@@ -121,6 +129,10 @@ class QuestionsRepositorySQLA(QuestionsRepository):
             )
 
         else:
+            self.logger.info(
+                f"Question with ID={question_id} not found",
+                extra=self.logging_ctx
+            )
             return None
 
     async def delete_question(self, question_id: int) -> bool:

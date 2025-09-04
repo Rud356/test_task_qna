@@ -47,22 +47,22 @@ async def session(session_maker: async_sessionmaker[AsyncSession]) -> AsyncGener
         yield session
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def transaction(session_maker: async_sessionmaker[AsyncSession]) -> TransactionManagerSQLA:
     return TransactionManagerSQLA(session_maker)
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def question_repo(transaction: TransactionManagerSQLA) -> QuestionsRepositorySQLA:
     return QuestionsRepositorySQLA(transaction)
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def answers_repo(transaction: TransactionManagerSQLA) -> AnswerRepositorySQLA:
     return AnswerRepositorySQLA(transaction)
 
 
-@pytest.fixture()
+@pytest.fixture(scope='function')
 def response_author() -> str:
     return f"demo_email_{secrets.token_urlsafe(16)}@example.com"
 

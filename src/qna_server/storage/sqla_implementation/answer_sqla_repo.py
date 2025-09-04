@@ -57,7 +57,7 @@ class AnswerRepositorySQLA(AnswersRepository):
                 await tr.commit()
 
             except IntegrityError as err:
-                self.logger.exception(
+                self.logger.warning(
                     "Failed to create an answer to a question in database",
                     extra=self.logging_ctx
                 )
@@ -86,7 +86,7 @@ class AnswerRepositorySQLA(AnswersRepository):
 
         if answer_data is not None:
             self.logger.info(
-                f"Successfully found answer with id={answer_data}",
+                f"Successfully found answer with ID={answer_data.id}",
                 extra=self.logging_ctx
             )
 
@@ -118,7 +118,6 @@ class AnswerRepositorySQLA(AnswersRepository):
             except NoResultFound as err:
                 self.logger.warning(
                     "No answer with provided ID found",
-                    exc_info=True,
                     extra=self.logging_ctx
                 )
                 raise NotFoundError("Answer not found in database") from err
