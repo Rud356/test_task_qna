@@ -2,7 +2,7 @@ import logging.config
 from pathlib import Path
 
 
-def init_logging(file_path: Path):
+def init_logging(file_path: Path) -> None:
     logging.config.fileConfig(
         file_path
     )
