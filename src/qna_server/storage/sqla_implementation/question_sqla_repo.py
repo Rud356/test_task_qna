@@ -40,6 +40,7 @@ class QuestionsRepositorySQLA(QuestionsRepository):
             new_question: QuestionTable = QuestionTable(
                 text=question_content.text
             )
+            tr.add(new_question)
             await tr.commit()
 
         self.logger.debug(

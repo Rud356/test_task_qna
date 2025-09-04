@@ -1,0 +1,27 @@
+services:
+  db_server:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: demo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: testpwd123
+
+    ports:
+      - "5433:5432"
+
+  backend:
+    container_name: qna_backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7999:7999"
+    volumes:
+      - ./config.toml:/app/config.toml
+      - ./alembic.ini:/app/alembic.ini
+    depends_on:
+      - db_server
+
+networks:
+  interconnect:
+    driver: bridge

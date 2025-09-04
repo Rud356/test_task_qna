@@ -1,5 +1,5 @@
-host = "0.0.0.0"
-port = 7999
+host = "localhost"
+port = 6060
 
 [db_settings]
 connection_string = "postgresql+asyncpg://postgres:testpwd123@localhost:5433/demo_db"

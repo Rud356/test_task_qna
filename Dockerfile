@@ -9,4 +9,4 @@ ENV VIRTUAL_ENV /env
 ENV PATH /env/bin:$PATH
 RUN pip install --no-cache-dir -e .[migration]
 
-CMD ["python", "-m", "src.demo_api"]
+CMD ["python", "-m", "src.qna_server"]
