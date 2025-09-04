@@ -130,7 +130,16 @@ class QuestionsRepositorySQLA(QuestionsRepository):
             )
 
             try:
-                question: QuestionTable = await tr.get_one(QuestionTable, question_id)
+                query: Select[tuple[QuestionTable]] = (
+                    select(QuestionTable)
+                    .options(
+                        selectinload(QuestionTable.answers)
+                    )
+                    .where(QuestionTable.id == question_id)
+                )
+                question: QuestionTable = (
+                    await tr.execute(query)
+                ).scalar_one()
                 await tr.delete(question)
                 await tr.commit()
 

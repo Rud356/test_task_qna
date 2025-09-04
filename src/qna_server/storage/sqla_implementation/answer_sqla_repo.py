@@ -77,14 +77,14 @@ class AnswerRepositorySQLA(AnswersRepository):
 
     async def fetch_answer_by_id(self, answer_id: int) -> Answer | None:
         async with self.transaction as tr:
-            self.logger.debug(
+            self.logger.info(
                 f"Fetching information for answer with id={answer_id}",
                 extra=self.logging_ctx
             )
             answer_data: AnswerTable | None = await tr.get(AnswerTable, answer_id)
 
         if answer_data is not None:
-            self.logger.debug(
+            self.logger.info(
                 f"Successfully found answer with id={answer_data}",
                 extra=self.logging_ctx
             )
@@ -98,7 +98,7 @@ class AnswerRepositorySQLA(AnswersRepository):
             )
 
         else:
-            self.logger.debug(
+            self.logger.warning(
                 f"Answer with id={answer_data} not found",
                 extra=self.logging_ctx
             )
@@ -106,7 +106,7 @@ class AnswerRepositorySQLA(AnswersRepository):
 
     async def delete_answer(self, answer_id: int) -> bool:
         async with self.transaction as tr:
-            self.logger.debug(
+            self.logger.info(
                 f"Fetching information for answer with id={answer_id} to be deleted",
                 extra=self.logging_ctx
             )
@@ -115,8 +115,9 @@ class AnswerRepositorySQLA(AnswersRepository):
                 answer_data: AnswerTable = await tr.get_one(AnswerTable, answer_id)
 
             except NoResultFound as err:
-                self.logger.exception(
+                self.logger.warning(
                     "No answer with provided ID found",
+                    exc_info=True,
                     extra=self.logging_ctx
                 )
                 raise NotFoundError("Answer not found in database") from err
