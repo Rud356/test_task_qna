@@ -47,6 +47,7 @@ class AnswerRepositorySQLA(AnswersRepository):
                 user_id=answer_content.user_id,
                 text=answer_content.text
             )
+            tr.add(new_answer)
 
             try:
                 self.logger.debug(
