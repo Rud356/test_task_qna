@@ -1,7 +1,7 @@
 from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
-from qna_server.storage.protocol import AnswersRepository, QuestionsRepository, TransactionManager
+from qna_server.storage.protocol import AnswersRepository, QuestionsRepository
 from qna_server.storage.sqla_implementation import (
     AnswerRepositorySQLA,
     QuestionsRepositorySQLA,
