@@ -5,8 +5,8 @@ WORKDIR /app
 COPY . /app
 
 RUN python -m venv .env
-ENV VIRTUAL_ENV /env
-ENV PATH /env/bin:$PATH
+ENV VIRTUAL_ENV=/env
+ENV PATH=/env/bin:$PATH
 RUN pip install --no-cache-dir -e .[migration]
 
 CMD ["python", "-m", "src.qna_server"]

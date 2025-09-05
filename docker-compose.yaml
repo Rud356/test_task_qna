@@ -17,8 +17,9 @@ services:
     ports:
       - "7999:7999"
     volumes:
-      - ./config.toml:/app/config.toml
-      - ./alembic.ini:/app/alembic.ini
+      - ./config_docker.toml:/app/config.toml
+      - ./alembic_docker.ini:/app/alembic.ini
+      - ./logging.conf:/app/logging.conf
     depends_on:
       - db_server
 

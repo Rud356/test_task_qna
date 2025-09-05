@@ -1,0 +1,9 @@
+host = "0.0.0.0"
+port = 7999
+allowed_cors_domains = [
+    "http://localhost:7999",
+    "https://localhost:7999"
+]
+
+[db_settings]
+connection_string = "postgresql+asyncpg://postgres:testpwd123@db_server:5432/demo_db"
