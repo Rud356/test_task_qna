@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, AsyncGenerator
 
 import pytest
-import pytest_asyncio  # noqa: enables async mode
+import pytest_asyncio  # noqa F401
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
 from qna_server.storage.sqla_implementation import (
