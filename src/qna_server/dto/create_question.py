@@ -9,5 +9,6 @@ class CreateQuestion(BaseModel):
         min_length=1,
         max_length=2048,
         pattern=r"^(\S.+){1,2048}",
-        description="Questions text that must start from non-whitespace character"
+        description="Questions text that must start from non-whitespace character",
+        examples=["What is the answer to a universe?"]
     )

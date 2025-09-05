@@ -5,4 +5,7 @@ from .question import Question
 
 
 class QuestionWithAnswers(Question):
-    answers: list[Answer] = Field(description="Answers to specified question")
+    answers: list[Answer] = Field(
+        description="Answers to specified question",
+        examples=["Answer to a question is 42"]
+    )

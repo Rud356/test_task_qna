@@ -12,7 +12,7 @@ from qna_server.exceptions import NotFoundError
 from qna_server.storage.protocol import QuestionsRepository
 from qna_server.storage.sqla_implementation.tables import QuestionTable
 from qna_server.storage.sqla_implementation.transaction_manager_sqla import TransactionManagerSQLA
-from qna_server.types import ContextID, LoggingContext, generate_context_id
+from qna_server.custom_types import ContextID, LoggingContext, generate_context_id
 
 
 class QuestionsRepositorySQLA(QuestionsRepository):

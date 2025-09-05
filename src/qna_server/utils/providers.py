@@ -7,7 +7,7 @@ from qna_server.storage.sqla_implementation import (
     QuestionsRepositorySQLA,
     TransactionManagerSQLA,
 )
-from qna_server.types import ContextID, generate_context_id
+from qna_server.custom_types import ContextID, generate_context_id
 from qna_server.use_cases.answers_use_cases import AnswersUseCases
 from qna_server.use_cases.questions_use_cases import QuestionsUseCases
 from qna_server.utils.config_schema import AppConfig

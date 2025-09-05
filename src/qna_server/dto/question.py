@@ -14,7 +14,8 @@ class Question(BaseModel):
     text: str = Field(
         min_length=1,
         max_length=2048,
-        description="Questions text"
+        description="Questions text",
+        examples=["What is the answer to a universe?"]
     )
     created_at: datetime = Field(
         description="When the question was created"

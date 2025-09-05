@@ -12,6 +12,7 @@ class AppConfig(BaseModel):
     host: str
     port: int = Field(ge=1, le=65_535)
     db_settings: DbSettings
+    allowed_cors_domains: list[str]
 
 
 def load_config(path: Path) -> AppConfig:

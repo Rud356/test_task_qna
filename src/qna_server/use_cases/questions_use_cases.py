@@ -4,7 +4,7 @@ from typing import Optional
 from qna_server.dto import CreateQuestion, Question, QuestionWithAnswers
 from qna_server.exceptions import NotFoundError
 from qna_server.storage.protocol import QuestionsRepository
-from qna_server.types import ContextID, LoggingContext, generate_context_id
+from qna_server.custom_types import ContextID, LoggingContext, generate_context_id
 
 
 class QuestionsUseCases:
