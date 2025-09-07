@@ -27,7 +27,7 @@ def setup_app(config: AppConfig) -> FastAPI:
     :return: FastAPI Application.
     """
     app: FastAPI = FastAPI(
-        title="Demo API of resource management",
+        title="Q&A API",
         host=config.host,
         port=config.port
     )
