@@ -8,7 +8,7 @@ version = "0.0.1"
 authors = [
   { name="Rud356", email="r.moroshkin2015@yandex.ru" },
 ]
-description = "Test task demo api"
+description = "Test task qna api"
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
