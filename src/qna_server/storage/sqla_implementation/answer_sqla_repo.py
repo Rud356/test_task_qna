@@ -100,7 +100,7 @@ class AnswerRepositorySQLA(AnswersRepository):
 
         else:
             self.logger.warning(
-                f"Answer with id={answer_data} not found",
+                f"Answer with id={answer_id} not found",
                 extra=self.logging_ctx
             )
             return None
